@@ -1,3 +1,14 @@
+# Copy assets
+if Rails.env.development?
+  require 'fileutils'
+  ['javascripts', 'stylesheets'].each do |dir|
+    FileUtils.cp_r(
+      Rails.root.join(File.dirname(__FILE__), 'public', dir, 'cmsable'),
+      Rails.root.join('public', dir)
+    )
+  end
+end
+
 # View Helper
 require 'app/helpers/cmsable_helper'
 ActionView::Base.send :include, CmsableHelper
