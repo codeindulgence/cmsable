@@ -1,4 +1,8 @@
-# Cmsable
+# View Helper
+require 'app/helpers/cmsable_helper'
+ActionView::Base.send :include, CmsableHelper
+
+# Cmsable model ActiveRecord methods
 module Cmsable
   def self.included(base)
     base.send :extend, ClassMethods
