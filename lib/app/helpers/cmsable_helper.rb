@@ -1,8 +1,6 @@
 module CmsableHelper
-  mattr_accessor :cmsable_editable, :default_model
-  @@cmsable_editable = false
   def cmsable *arguments
-    model, name, options, attribute = [default_model, nil, {}, :body]
+    model, name, options, attribute = [Cmsable.default_model, nil, {}, :body]
     arguments.each do |arg|
       case arg
         when Class  then model     = arg
@@ -12,9 +10,9 @@ module CmsableHelper
       end
     end
     options = {
-      :editable  => false
+      :editable  => Cmsable.editable
     }.merge options
-    if options[:editable] or cmsable_editable
+    if options[:editable]
       model.get(name).send(attribute)+' edit!'
     else
       model.get(name).send attribute

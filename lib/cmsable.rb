@@ -9,15 +9,9 @@ if Rails.env.development?
   end
 end
 
-# View Helper
-require 'app/helpers/cmsable_helper'
-ActionView::Base.send :include, CmsableHelper
-
 # Cmsable model ActiveRecord methods
 module Cmsable
-  def self.included(base)
-    base.send :extend, ClassMethods
-  end
+  mattr_accessor :editable, :default_model
 
   module ClassMethods
     def cmsable(options = {})
@@ -60,4 +54,8 @@ module Cmsable
   end
 end
 
-ActiveRecord::Base.send :include, Cmsable
+ActiveRecord::Base.send :extend, Cmsable::ClassMethods
+
+# View Helper
+require 'app/helpers/cmsable_helper'
+ActionView::Base.send :include, CmsableHelper
