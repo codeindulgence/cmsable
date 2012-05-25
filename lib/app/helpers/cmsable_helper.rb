@@ -12,10 +12,20 @@ module CmsableHelper
     options = {
       :editable  => Cmsable.editable
     }.merge options
+    content = model.get(name)
     if options[:editable]
-      model.get(name).send(attribute)+' edit!'
+      content_tag :div, :class => :cmsable_node do
+        concat link_to('Edit', '#', :class => :cmsable_begin_edit)
+        concat content.send(attribute)
+        concat(capture do
+          form_for content do |form|
+            concat form.text_area(:body)
+            concat submit_tag('Save')
+          end
+        end)
+      end
     else
-      model.get(name).send attribute
+      content.send attribute
     end
   end
 end
