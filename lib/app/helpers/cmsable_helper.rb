@@ -15,12 +15,11 @@ module CmsableHelper
     content = model.get(name)
     if options[:editable]
       content_tag :div, :class => :cmsable_node do
-        concat link_to('Edit', '#', :class => :cmsable_begin_edit)
         concat content.send(attribute)
+        concat link_to('Edit', content.edit_link, :class => :cmsable_begin_edit)
         concat(capture do
           form_for content do |form|
-            concat form.text_area(:body)
-            concat submit_tag('Save')
+            concat form.text_area(:body, :class => :'ui-widget-content ui-corner-all')
           end
         end)
       end

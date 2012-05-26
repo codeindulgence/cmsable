@@ -47,6 +47,11 @@ module Cmsable
         self.send self.cmsable_options[:body]
       end
 
+    # TODO: is this the best way to get the form ID?
+      define_method :edit_link do
+        "#edit_#{self.class.to_s.downcase}_#{id}"
+      end
+
       validates_uniqueness_of cmsable_options[:name]
       validates_presence_of cmsable_options[:name] if cmsable_options[:validate_name]
       validates_presence_of cmsable_options[:body] if cmsable_options[:validate_body]
