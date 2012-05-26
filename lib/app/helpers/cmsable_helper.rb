@@ -29,7 +29,9 @@ module CmsableHelper
     end
   end
   def cmsable_includes
-    concat javascript_include_tag 'cmsable/cmsable'
-    concat stylesheet_link_tag 'cmsable/cmsable'
+    capture do
+      concat javascript_include_tag 'cmsable/cmsable'
+      concat stylesheet_link_tag 'cmsable/cmsable'
+    end
   end
 end
