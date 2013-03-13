@@ -9,7 +9,7 @@ module Cmsable
     def cmsable name, options = {}
 
       options = {
-        authorised:Cmsable.authorised
+        authorised:authorised?
       }.merge options
 
       if options[:authorised]
@@ -20,6 +20,17 @@ module Cmsable
         Content.get(name).to_s.html_safe
       end
 
+    end
+
+  private
+
+    def authorised?
+      authorised = false
+      if Cmsable.const_defined? :CanCan
+        authorised = can? :update, Content
+      else
+        authorised = Cmsable.authorised
+      end
     end
 
   end
