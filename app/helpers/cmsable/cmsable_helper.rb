@@ -1,5 +1,11 @@
 module Cmsable
   module CmsableHelper
+
+    def cmsable_assets
+      javascript_include_tag('cmsable/application') +
+      stylesheet_link_tag('cmsable/application')
+    end
+
     def cmsable name, options = {}
 
       options = {
@@ -15,5 +21,6 @@ module Cmsable
       end
 
     end
+
   end
 end
