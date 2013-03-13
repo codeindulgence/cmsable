@@ -1,3 +1,25 @@
 = Cmsable
 
 This project rocks and uses MIT-LICENSE.
+
+Installation:
+
+Add to your Gemfile
+  gem 'cmsable'
+
+Add to your routes
+  mount Cmsable::Engine => '/cmsable'
+
+Install and run the migrations
+  rake cmsable:install:migrations
+  rake dm:migrate
+
+Usage:
+
+In your layout
+  <%= cmsable_assets %>
+
+In your view files
+  <%= cmsable 'identifier' %>
+
+Identifier can be anything, for example 'Homepage Intro' or something
