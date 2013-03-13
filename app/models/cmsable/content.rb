@@ -12,7 +12,7 @@ module Cmsable
 
     # Instance Methods
     def to_s
-      body
+      body.html_safe
     end
 
     # Class Methods
