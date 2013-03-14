@@ -36,7 +36,8 @@ module Cmsable
       submit_tag('Save', {
         class: :cmsable_save,
            id: element_id(:save, model),
-           :'data-model' => model.class
+           :'data-model' => model.class,
+           :'data-token' => form_authenticity_token
       })
     end
 

@@ -4,13 +4,15 @@ $(function() {
   $('.cmsable_save').on('click', function() {
     var id = this.id.replace(/\D/g, ''),
         instance = this.id.replace('save', 'edit'),
-          model = this.getAttribute('data-model');
+          model = this.getAttribute('data-model'),
+          token = this.getAttribute('data-token');
     $.post('/cmsable/contents/' + id, {
-      _method:'put',
-        model: model,
-      content: {
-         body: CKEDITOR.instances[instance].getData()
-      }
+                 _method: 'put',
+                   model: model,
+      authenticity_token: token,
+                 content: {
+                   body: CKEDITOR.instances[instance].getData()
+                 }
     });
   });
 });
