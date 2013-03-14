@@ -1,5 +1,8 @@
 module Cmsable
   class Content < ActiveRecord::Base
+    # Extensions
+    cmsable
+
     # Attribute accessibility
     attr_accessible :body, :name
 
@@ -11,9 +14,6 @@ module Cmsable
     # Callbacks
 
     # Instance Methods
-    def to_s
-      body.html_safe
-    end
 
     # Class Methods
     def self.set name, body

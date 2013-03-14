@@ -2,13 +2,15 @@
 // All this logic will automatically be available in application.js.
 $(function() {
   $('.cmsable_save').on('click', function() {
-    var id = this.id.replace('cmsable_save_', ''),
-        instance = this.id.replace('save', 'edit');
+    var id = this.id.replace(/\D/g, ''),
+        instance = this.id.replace('save', 'edit'),
+          model = this.getAttribute('data-model');
     $.post('/cmsable/contents/' + id, {
       _method:'put',
+        model: model,
       content:{
-        body:CKEDITOR.instances[instance].getData()
-        }
-      })
+         body: CKEDITOR.instances[instance].getData()
+      }
+    });
   });
 });

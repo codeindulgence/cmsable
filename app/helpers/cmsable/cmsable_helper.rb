@@ -6,23 +6,50 @@ module Cmsable
       stylesheet_link_tag('cmsable/application')
     end
 
-    def cmsable name, options = {}
+    def cmsable name_or_model, options = {}
 
       options = {
         authorised:authorised?
       }.merge options
 
-      if options[:authorised]
-        content = Content.get(name)
-        content_tag(:div, content, class: :cmsable_edit, id:"cmsable_edit_#{content.id}", contenteditable:true) +
-        submit_tag('Save', class: :cmsable_save, id:"cmsable_save_#{content.id}")
-      else
-        Content.get(name).to_s.html_safe
-      end
+      content_or_editable_content get_model(name_or_model), options[:authorised]
 
     end
 
   private
+
+    def get_model name_or_model
+      if name_or_model.class < ActiveRecord::Base
+        name_or_model
+      else
+        Content.get(name_or_model)
+      end
+    end
+
+    def element_id type, model
+      "cmsable_#{type}_#{model.class.to_s.parameterize}_#{model.id}"
+    end
+
+    def button model
+      submit_tag('Save', {
+        class: :cmsable_save,
+           id: element_id(:save, model),
+           :'data-model' => model.class
+      })
+    end
+
+    def content_or_editable_content model, authorised
+      content = model.send(model.cmsable_body).html_safe
+      if authorised
+        content_tag(:div, content, {
+          contenteditable: true,
+                    class: :cmsable_edit,
+                       id: element_id(:edit, model),
+        })+button(model)
+      else
+        content
+      end
+    end
 
     def authorised?
       authorised = false
