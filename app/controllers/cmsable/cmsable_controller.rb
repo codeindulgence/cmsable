@@ -1,5 +1,5 @@
 module Cmsable
-  class ContentsController < ApplicationController
+  class CmsableController < ApplicationController
     def update
       model = params[:model].constantize
 

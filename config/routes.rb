@@ -1,3 +1,3 @@
 Cmsable::Engine.routes.draw do
-  resources :contents, :only => :update
+  put '/:id', :to => 'cmsable#update'
 end
