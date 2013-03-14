@@ -10,7 +10,7 @@ Add to your Gemfile
 Add to your routes
   mount Cmsable::Engine => '/cmsable'
 
-Install and run the migrations
+Install and run the migrations if you want to use the built in model
   rake cmsable:install:migrations
   rake dm:migrate
 
@@ -19,7 +19,14 @@ Usage:
 In your layout
   <%= cmsable_assets %>
 
-In your view files
-  <%= cmsable 'identifier' %>
+To use the built in model
+  In your view files
+    <%= cmsable 'identifier' %>
 
 Identifier can be anything, for example 'Homepage Intro' or something
+
+To use existing models
+  Add to your model
+    cmsable :body => :column_to_use_for_content
+  Then in your views
+    <%= cmsable @model_instance %>
