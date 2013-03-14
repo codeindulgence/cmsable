@@ -8,7 +8,7 @@ $(function() {
     $.post('/cmsable/contents/' + id, {
       _method:'put',
         model: model,
-      content:{
+      content: {
          body: CKEDITOR.instances[instance].getData()
       }
     });
