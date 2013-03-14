@@ -8,11 +8,13 @@ module Cmsable
 
     def cmsable name_or_model, options = {}
 
+      model = get_model name_or_model
+
       options = {
-        authorised:authorised?
+        authorised:authorised?(model)
       }.merge options
 
-      content_or_editable_content get_model(name_or_model), options[:authorised]
+      content_or_editable_content model, options[:authorised]
 
     end
 
@@ -51,10 +53,10 @@ module Cmsable
       end
     end
 
-    def authorised?
+    def authorised? model
       authorised = false
       if Cmsable.const_defined? :CanCan
-        authorised = can? :update, Content
+        authorised = can? :update, model
       else
         authorised = Cmsable.authorised
       end
