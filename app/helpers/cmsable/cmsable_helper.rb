@@ -42,13 +42,15 @@ module Cmsable
     end
 
     def content_or_editable_content model, authorised
+      control = render :template => 'cmsable/cmsable/control' unless @control_rendered
+      @control_rendered = true
       content = model.send(model.cmsable_body).html_safe
       if authorised
         content_tag(:div, content, {
           contenteditable: true,
                     class: :cmsable_edit,
                        id: element_id(:edit, model),
-        })+button(model)
+        }) + button(model) + (control or '')
       else
         content
       end

@@ -5,3 +5,12 @@
 .cmsable_edit {
   background:url(/assets/cmsable/construction.png); /* http://www.patternsky.com/textures/hazard-stripes-texture/ */
 }
+
+#cmsable_control {
+  position:fixed;
+  right:20px;
+  top:0;
+  border:1px solid #454545;
+  border-top:0;
+  padding:10px;
+}
