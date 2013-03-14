@@ -15,6 +15,3 @@ gem "jquery-rails"
 
 # To use debugger
 # gem 'debugger'
-
-# Uses CKEditor
-gem 'ckeditor', '>=4.0'
