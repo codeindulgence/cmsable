@@ -45,3 +45,12 @@ To use existing models
     cmsable :body => :column_to_use_for_content
   Then in your views
     <%= cmsable @model_instance %>
+
+TODO
+  Complete gemspec
+  Handle save fails
+  Rename to Messable
+  Allow to fallback to built in auth if no CanCan
+  Add other auth library support?
+  Setup config initializer for added customizability
+  Create some tests, I guess
