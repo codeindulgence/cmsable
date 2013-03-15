@@ -28,29 +28,16 @@ module Cmsable
       end
     end
 
-    def element_id type, model
-      "cmsable_#{type}_#{model.class.to_s.parameterize}_#{model.id}"
-    end
-
-    def button model
-      submit_tag('Save', {
-        class: :cmsable_save,
-           id: element_id(:save, model),
-           :'data-model' => model.class,
-           :'data-token' => form_authenticity_token
-      })
-    end
-
     def content_or_editable_content model, authorised
-      control = render :template => 'cmsable/cmsable/control' unless @control_rendered
-      @control_rendered = true
+      control = render :template => 'cmsable/cmsable/control' unless @cmsable_control_rendered
+      @cmsable_control_rendered = true
       content = model.send(model.cmsable_body).html_safe
       if authorised
         content_tag(:div, content, {
-          contenteditable: true,
-                    class: :cmsable_edit,
-                       id: element_id(:edit, model),
-        }) + button(model) + (control or '')
+                    class: :cmsable_editor,
+                       id: "cmsable_edit_#{model.class.to_s.parameterize}_#{model.id}",
+          :'data-model' => model.class,
+        }) + (control or '')
       else
         content
       end

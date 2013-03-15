@@ -2,15 +2,64 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
-.cmsable_edit {
+.cmsable_editor.reveal {
   background:url(/assets/cmsable/construction.png); /* http://www.patternsky.com/textures/hazard-stripes-texture/ */
 }
 
 #cmsable_control {
   position:fixed;
-  right:20px;
-  top:0;
-  border:1px solid #454545;
-  border-top:0;
+  left:80%;
+  top:-10px;
+  border-radius:0 0 5px 5px;
+  box-shadow:2px 2px 15px #454545;
+  background:#999;
+  -webkit-transition:All 0.5s ease; -moz-transition:All 0.5s ease; -o-transition:All 0.5s ease;
+  z-index:9999;
+}
+
+#cmsable_control a {
+  float:left;
+  display:block;
+  background:#454545;
+  padding:10px 10px 0;
+  font-size:10px;
+  font-family:sans;
+  color:white;
+  cursor:pointer;
+  box-shadow:inset 0 0 10px #999;
+  z-index:1;
+  position:relative;
+}
+
+#cmsable_control a:hover {
+  background:#666;
+}
+
+#cmsable_control a.cmsable_edit {
+  border-radius:0 0 0 5px;
+}
+
+#cmsable_control a.cmsable_save {
+  border-radius:0 0 5px 0;
+}
+
+#cmsable_control a.cmsable_edit.cmsable_on {
+  background:green;
+}
+
+#cmsable_control .cmsable_processing {
+  background:url(/assets/cmsable/ajax-loader.gif) no-repeat center 15px;
   padding:10px;
+  width:16px;
+  height:16px;
+  display:block;
+  float:left;
+  text-indent:-9999px;
+  overflow:hidden;
+  margin-left:-40px;
+  -webkit-transition:All 0.5s ease; -moz-transition:All 0.5s ease; -o-transition:All 0.5s ease;
+}
+
+#cmsable_control.processing .cmsable_processing {
+  margin-left:0;
 }
