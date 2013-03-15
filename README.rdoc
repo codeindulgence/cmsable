@@ -7,12 +7,27 @@ Installation:
 Add to your Gemfile
   gem 'cmsable'
 
+Make sure you're using ckeditor 4
+  bundle install
+If that doesn't work
+  bundle update ckeditor
+
 Add to your routes
   mount Cmsable::Engine => '/cmsable'
 
 Install and run the migrations if you want to use the built in model
   rake cmsable:install:migrations
   rake dm:migrate
+
+Cmsable uses CanCan so make sure this is setup in your necessary controller(s)
+If your users aren't called users then you'll get something like:
+  undefined local variable or method `current_user' for ...
+
+You need to define the current_ability, e.g.
+  def current_ability
+    @current_ability ||= AccountAbility.new(current_account)
+  end
+From https://github.com/ryanb/cancan/wiki/changing-defaults
 
 Usage:
 
