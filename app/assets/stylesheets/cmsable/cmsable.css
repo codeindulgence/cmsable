@@ -41,10 +41,19 @@
 
 #cmsable_control a.cmsable_save {
   border-radius:0 0 5px 0;
+  background:#858585;
+  color:#bbb;
+  cursor:default;
+}
+
+#cmsable_control a.cmsable_save.cmsable_on {
+  background:rgb(70, 121, 185);
+  color:white;
+  cursor:pointer;
 }
 
 #cmsable_control a.cmsable_edit.cmsable_on {
-  background:green;
+  background:rgb(94, 182, 94);
 }
 
 #cmsable_control .cmsable_processing {
