@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.email       = ["nick@codeindulgence.com"]
   s.summary     = "Inline editing of page content"
   s.description = "Lets users update the content on their pages directly on the page without the need of an admin system"
+  s.homepage    = "http://www.hardhatdigital.com.au/"
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
