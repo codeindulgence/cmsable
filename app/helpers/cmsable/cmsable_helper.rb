@@ -20,7 +20,7 @@ module Cmsable
         options[:authorised] = authorised?(model)
       end
 
-      content_or_editable_content model, options[:authorised]
+      content_or_editable_content model, (options[:authorised] and !options[:readonly])
 
     end
 
@@ -34,11 +34,13 @@ module Cmsable
       end
     end
 
-    def content_or_editable_content model, authorised
-      control = render :template => 'cmsable/cmsable/control' unless @cmsable_control_rendered
+    def content_or_editable_content model, editable
+      control = if(!@cmsable_control_rendered and editable)
+        render :template => 'cmsable/cmsable/control'
+      end
       @cmsable_control_rendered = true
       content = model.send(model.cmsable_body).html_safe
-      if authorised
+      if editable
         content_tag(:div, content, {
                     class: :cmsable_editor,
                        id: "cmsable_edit_#{model.class.to_s.parameterize}_#{model.id}",
