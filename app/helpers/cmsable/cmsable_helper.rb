@@ -11,8 +11,14 @@ module Cmsable
       model = get_model name_or_model
 
       options = {
-        authorised:authorised?(model)
+        readonly:false
       }.merge options
+
+      # Skip checking permission of set to readonly or
+      # explicit authorisation is passed
+      unless options.include?(:authorised) or options[:readonly]
+        options[:authorised] = authorised?(model)
+      end
 
       content_or_editable_content model, options[:authorised]
 
