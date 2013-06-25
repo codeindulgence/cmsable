@@ -21,7 +21,7 @@ module Cmsable
     end
 
     def self.get name
-      find_or_create_by_name name, :body => "Awaiting Content"
+      find_or_create_by_name name, :body => "<p>Awaiting Content</p>"
     end
 
     # Scopes
