@@ -54,3 +54,5 @@ TODO
   Add other auth library support?
   Setup config initializer for added customizability
   Create some tests, I guess
+  Add support for "image mode" content
+  Change highlight so empty areas are still visible
