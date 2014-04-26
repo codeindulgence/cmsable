@@ -7,10 +7,10 @@ $(function() {
   $('.cmsable_edit').on('click', function() {
     $('#cmsable_control a').toggleClass('cmsable_on');
     if ($(this).hasClass('cmsable_on')) {
-      $('.cmsable_editor').addClass('reveal').attr('contenteditable', true);
+      $('.cmsable_editor').addClass('cmsable_reveal').attr('contenteditable', true);
       CKEDITOR.inlineAll();
     }else{
-      $('.cmsable_editor').removeClass('reveal').attr('contenteditable', false);
+      $('.cmsable_editor').removeClass('cmsable_reveal').attr('contenteditable', false);
       $.each(CKEDITOR.instances, function(index, instance) {
         instance.destroy();
       });
