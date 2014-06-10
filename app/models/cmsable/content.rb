@@ -21,7 +21,7 @@ module Cmsable
     end
 
     def self.get name
-      find_or_create_by_name name, :body => "<p>Awaiting Content</p>"
+      find_or_create_by_name name, :body => I18n.t("cmsable.#{name}", default: "<p>Awaiting Content</p>")
     end
 
     # Scopes
