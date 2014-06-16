@@ -1,23 +1,21 @@
-= Cmsable
+# Cmsable
 
-This project rocks and uses MIT-LICENSE.
+Add inline editable content to pages.
 
 Installation:
 
 Add to your Gemfile
   gem 'cmsable'
 
-Make sure you're using ckeditor 4
+Get Dependencies
   bundle install
-If that doesn't work
-  bundle update ckeditor
 
 Add to your routes
   mount Cmsable::Engine => '/cmsable'
 
 Install and run the migrations if you want to use the built in model
   rake cmsable:install:migrations
-  rake dm:migrate
+  rake db:migrate
 
 Cmsable uses CanCan so make sure this is setup in your necessary controller(s)
 If your users aren't called users then you'll get something like:
@@ -46,13 +44,14 @@ To use existing models
   Then in your views
     <%= cmsable @model_instance %>
 
-TODO
-  Complete gemspec
-  Handle save fails
-  Rename to Messable
-  Allow to fallback to built in auth if no CanCan
-  Add other auth library support?
-  Setup config initializer for added customizability
-  Create some tests, I guess
-  Add support for "image mode" content
-  Change highlight so empty areas are still visible
+## TODO
+  - Handle saving errors
+  - Remove CanCan dependancy
+  - Decouple ckeditor
+  - Support different editors
+  - Setup config initializer for added customizability
+  - Add plain text mode
+  - Add file mode
+  - Add image mode
+  - Add video mode (youtube/vimeo/etc)
+  - Fix highlight so empty areas are still visible
