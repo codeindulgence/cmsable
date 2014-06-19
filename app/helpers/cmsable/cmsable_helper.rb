@@ -1,32 +1,38 @@
+# encoding: utf-8
 module Cmsable
+  # Cmsable view helpers
   module CmsableHelper
-
     def cmsable_assets
       javascript_include_tag('cmsable/application') +
       stylesheet_link_tag('cmsable/application')
     end
 
-    def cmsable name_or_model, options = {}
+    DEFAULTS = {
+      readonly: false, # Can edit by default
+      rich: true,      # Use rich text editor by default
+      plantext: false  # No text editor
+    }
 
+    def cmsable(name_or_model, options = {})
       model = get_model name_or_model
 
-      options = {
-        readonly:false
-      }.merge options
+      options = DEFAULTS.merge options
 
-      # Skip checking permission of set to readonly or
+      # Skip checking permission if set to readonly or
       # explicit authorisation is passed
-      unless options.include?(:authorised) or options[:readonly]
+      unless options.include?(:authorised) || options[:readonly]
         options[:authorised] = authorised?(model)
       end
 
-      content_or_editable_content model, (options[:authorised] and !options[:readonly])
+      content = model.send(model.cmsable_body).html_safe
+      editable = options[:authorised] && !options[:readonly]
 
+      editable ? show_cmsable(content) : content
     end
 
-  private
+    private
 
-    def get_model name_or_model
+    def get_model(name_or_model)
       if name_or_model.class < ActiveRecord::Base
         name_or_model
       else
@@ -34,31 +40,25 @@ module Cmsable
       end
     end
 
-    def content_or_editable_content model, editable
-      control = if(!@cmsable_control_rendered and editable)
-        render :template => 'cmsable/cmsable/control'
-      end
+    def show_cmsable(content)
+      control = unless @cmsable_control_rendered
+                  render template: 'cmsable/cmsable/control'
+                end
       @cmsable_control_rendered = true
-      content = model.send(model.cmsable_body).html_safe
-      if editable
-        content_tag(:div, content, {
-                    class: :cmsable_editor,
-                       id: "cmsable_edit_#{model.class.to_s.parameterize}_#{model.id}",
-          :'data-model' => model.class,
-        }) + (control or '')
-      else
-        content
-      end
+      id = "cmsable_edit_#{model.class.to_s.parameterize}_#{model.id}"
+      content_tag(:div, content,
+                  class: :cmsable_editor,
+                  id: id,
+                  'data-model' => model.class,
+      ) + (control || '')
     end
 
-    def authorised? model
-      authorised = false
+    def authorised?(model)
       if Cmsable.const_defined? :CanCan
-        authorised = can? :update, model
+        can? :update, model
       else
-        authorised = Cmsable.authorised
+        Cmsable.authorised
       end
     end
-
   end
 end
