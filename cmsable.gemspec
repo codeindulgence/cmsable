@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = 'Lets users update the content on their pages directly on the page without the need of an admin system'
   s.homepage    = 'https://github.com/codeindulgence/cmsable'
 
-  s.files = Dir['{app,config,db,lib}/**/*'] + ['MIT-LICENSE', 'Rakefile', 'README.rdoc']
+  s.files = Dir['{app,config,db,lib}/**/*'] + ['MIT-LICENSE', 'Rakefile', 'README.md']
   s.test_files = Dir['test/**/*']
   s.licenses = ['MIT']
 

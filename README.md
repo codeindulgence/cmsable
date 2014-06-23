@@ -55,7 +55,31 @@ In your view files
 <%= cmsable 'identifier' %>
 ```
 
-Identifier can be anything, for example 'Homepage Intro' or something
+Identifier can be any string or symbol, for example `'Homepage Intro'` or `:something`
+
+For plain text areas pass `plain: true` as an option.
+This way you can put content in any tag you want without worrying about users
+messing up the markup.
+
+```ruby
+<span><%= cmsable :identifier, plain: true %></span>
+```
+
+The problem with the above is that in edit mode you'll end up with invalid HTML:
+
+```html
+<span><div contenteditable>Content</div></span>
+```
+
+To avoid this you can override the tag used in edit mode:
+
+```ruby
+<%= cmsable :identifier, plain: true, tag: 'span' %>
+```
+Resulting in:
+```html
+<span contenteditable>Content</span>
+```
 
 ### To use your own models
 Add to your model:
@@ -75,7 +99,6 @@ Then in your views:
   - Decouple ckeditor
   - Support different editors
   - Setup config initializer for added customizability
-  - Add plain text mode
   - Add file mode
   - Add image mode
   - Add video mode (youtube/vimeo/etc)

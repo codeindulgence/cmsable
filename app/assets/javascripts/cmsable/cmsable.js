@@ -8,7 +8,9 @@ $(function() {
     $('#cmsable_control a').toggleClass('cmsable_on');
     if ($(this).hasClass('cmsable_on')) {
       $('.cmsable_editor').addClass('cmsable_reveal').attr('contenteditable', true);
-      CKEDITOR.inlineAll();
+      $('.cmsable_rich').each(function(idx, ele) {
+        CKEDITOR.inline(ele);
+      });
     }else{
       $('.cmsable_editor').removeClass('cmsable_reveal').attr('contenteditable', false);
       $.each(CKEDITOR.instances, function(index, instance) {
@@ -20,29 +22,44 @@ $(function() {
   $(document).on('click', '.cmsable_save.cmsable_on', function() {
     $('#cmsable_control').addClass('processing');
     var that = this,
-        updated = 0,
-        instances = 0;
+        token = that.getAttribute('data-token');
+
+    var cmsables = [];
+
+    // Submit plain text fields
+    $('.cmsable_plain').each(function(idx, ele) {
+      $ele = $(ele);
+      cmsables.push({
+        id: ele.id.replace(/\D/g, ''),
+        model: $ele.data('model'),
+        body: $ele.text()
+      });
+    });
+
+    // Submit CKEditor fields
     $.each(CKEDITOR.instances, function(index, instance) {
-      instances++;
-      var id = instance.name.replace(/\D/g, ''),
-          model = instance.element.$.getAttribute('data-model'),
-          token = that.getAttribute('data-token'),
-          body = instance.getData();
-      $.post('/cmsable/' + id, {
+      cmsables.push({
+        id: instance.name.replace(/\D/g, ''),
+        model: instance.element.$.getAttribute('data-model'),
+        body: instance.getData()
+      });
+    });
+
+    $.each(cmsables, function(idx, cmsable) {
+      $.post('/cmsable/' + cmsable.id, {
                    _method: 'put',
-                     model: model,
+                     model: cmsable.model,
         authenticity_token: token,
                    content: {
-                     body: body
+                     body: cmsable.body
                    }
       }, function(data) {
-        updated++;
-        if (updated === instances) {
+        if (idx == cmsables.length - 1) {
           $('#cmsable_control').removeClass('processing');
         }
       });
     });
+
     $('.cmsable_edit').click();
   });
-
 });
