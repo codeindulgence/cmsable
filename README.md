@@ -94,13 +94,14 @@ Then in your views:
 ```
 
 ## TODO
-  - Handle saving errors
-  - Remove CanCan dependancy
-  - Decouple ckeditor
-  - Support different editors
-  - Setup config initializer for added customizability
-  - Add file mode
+  - Allow classes on custom tags
+  - Fix highlight so empty areas are still visible
   - Add image mode
+  - Add file mode
   - Add video mode (youtube/vimeo/etc)
   - Add support for langs/i18n
-  - Fix highlight so empty areas are still visible
+  - Handle saving errors
+  - Decouple ckeditor
+  - Support different editors
+  - Remove CanCan dependancy
+  - Setup config initializer for added customizability
