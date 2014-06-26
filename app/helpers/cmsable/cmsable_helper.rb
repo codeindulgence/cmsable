@@ -25,7 +25,7 @@ module Cmsable
       options = DEFAULTS.merge options
 
       # Fail on unknow types
-      typefail options[:type] unless TYPES.include? options[:type]
+      type_fail options[:type] unless TYPES.include? options[:type]
 
       # Skip checking permission if set to readonly or
       # explicit authorisation is passed
