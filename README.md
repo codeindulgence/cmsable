@@ -57,12 +57,12 @@ In your view files
 
 Identifier can be any string or symbol, for example `'Homepage Intro'` or `:something`
 
-For plain text areas pass `plain: true` as an option.
+For plain text areas pass `type: :plain` as an option.
 This way you can put content in any tag you want without worrying about users
 messing up the markup.
 
 ```ruby
-<span><%= cmsable :identifier, plain: true %></span>
+<span><%= cmsable :identifier, type: :plain %></span>
 ```
 
 The problem with the above is that in edit mode you'll end up with invalid HTML:
@@ -74,7 +74,7 @@ The problem with the above is that in edit mode you'll end up with invalid HTML:
 To avoid this you can override the tag used in edit mode:
 
 ```ruby
-<%= cmsable :identifier, plain: true, tag: 'span' %>
+<%= cmsable :identifier, type: :plain, tag: 'span' %>
 ```
 Resulting in:
 ```html
