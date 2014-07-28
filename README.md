@@ -42,17 +42,11 @@ end
 
 ## Usage
 
-Add to your layout:
-
-```ruby
-<%= cmsable_assets %>
-```
-
 ### To use the built in model
 In your view files
 
 ```ruby
-<%= cmsable 'identifier' %>
+<%= cms 'identifier' %>
 ```
 
 Identifier can be any string or symbol, for example `'Homepage Intro'` or `:something`
@@ -62,7 +56,7 @@ This way you can put content in any tag you want without worrying about users
 messing up the markup.
 
 ```ruby
-<span><%= cmsable :identifier, type: :plain %></span>
+<span><%= cms :identifier, type: :plain %></span>
 ```
 
 The problem with the above is that in edit mode you'll end up with invalid HTML:
@@ -74,7 +68,7 @@ The problem with the above is that in edit mode you'll end up with invalid HTML:
 To avoid this you can override the tag used in edit mode:
 
 ```ruby
-<%= cmsable :identifier, type: :plain, tag: 'span' %>
+<%= cms :identifier, type: :plain, tag: 'span' %>
 ```
 Resulting in:
 ```html
@@ -85,12 +79,12 @@ Resulting in:
 Add to your model:
 
 ```ruby
-cmsable :body => :column_to_use_for_content
+cms :body => :column_to_use_for_content
 ```
 
 Then in your views:
 ```ruby
-<%= cmsable @model_instance %>
+<%= cms @model_instance %>
 ```
 
 ## TODO

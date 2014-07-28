@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir['test/**/*']
   s.licenses = ['MIT']
 
-  s.add_dependency 'rails', '~> 3.2'
+  s.add_dependency 'rails', '~> 4.0'
   s.add_dependency 'ckeditor', '~> 4.0'
   s.add_dependency 'cancan', '~> 1.6'
 

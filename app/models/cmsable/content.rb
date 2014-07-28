@@ -3,9 +3,6 @@ module Cmsable
     # Extensions
     cmsable
 
-    # Attribute accessibility
-    attr_accessible :body, :name
-
     # Validations
     validates :name, :presence => true
 
@@ -21,7 +18,10 @@ module Cmsable
     end
 
     def self.get name
-      find_or_create_by_name name, :body => I18n.t("cmsable.#{name}", default: "<p>Awaiting Content</p>")
+      find_or_create_by name: name do |record|
+        body = I18n.t("cmsable.#{name}", default: "<p>Awaiting Content</p><script>alert('Cmsable entry \"#{name}\" is awaiting content');</script>")
+        record.update body: body
+      end
     end
 
     # Scopes

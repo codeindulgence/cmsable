@@ -4,8 +4,8 @@ module Cmsable
   class Engine < ::Rails::Engine
     isolate_namespace Cmsable
     initializer 'cmsable.action_controller' do |app|
-      ActiveSupport.on_load :action_controller do
-        helper Cmsable::CmsableHelper
+      ActiveSupport.on_load :action_view do
+        include Cmsable::CmsableHelper
       end
     end
   end

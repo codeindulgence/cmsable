@@ -19,7 +19,7 @@ module Cmsable
       tag: nil # What tag to use for contenteditable
     }
 
-    def cmsable(name_or_model, options = {})
+    def cms(name_or_model, options = {})
       model = get_model name_or_model
 
       options = DEFAULTS.merge options
